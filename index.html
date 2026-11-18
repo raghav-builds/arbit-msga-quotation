@@ -1,1 +1,516 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arbit Automobile - MSGA Quotation</title>
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f2f5f9;font-family:Arial;color:#182b40}
+header{background:#142b46;color:white;padding:22px;text-align:center}
+header h1{margin:0;font-size:24px}
+header p{margin:6px 0 0}
+.container{max-width:1100px;margin:25px auto;padding:15px}
+.card{background:white;padding:20px;border-radius:12px;margin-bottom:20px;box-shadow:0 3px 12px #0001}
+h2{color:#142b46;font-size:19px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+input,select{width:100%;padding:11px;border:1px solid #ccd5df;border-radius:7px;margin-top:5px}
+label{font-weight:bold;font-size:13px}
+button{padding:11px 16px;border:0;border-radius:7px;background:#245b88;color:white;cursor:pointer;margin:5px 3px}
+button:hover{opacity:.9}
+.secondary{background:#64748b}
+.green{background:#16734b}
+.danger{background:#b83232}
+table{width:100%;border-collapse:collapse;margin-top:15px}
+th,td{padding:11px;border-bottom:1px solid #ddd;text-align:left}
+th{background:#edf2f7}
+.right{text-align:right}
+.accessory-list{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:15px}
+.accessory{border:1px solid #dce3ec;padding:12px;border-radius:8px;display:flex;align-items:center;gap:10px}
+.accessory input{width:18px;height:18px;margin:0}
+.summary{max-width:350px;margin:20px 0 0 auto}
+.summary div{display:flex;justify-content:space-between;padding:7px}
+.total{font-size:21px;font-weight:bold;border-top:2px solid #142b46}
+.hidden{display:none!important}
+.notice{background:#edf5ff;padding:12px;border-radius:7px;font-size:13px}
+@media(max-width:650px){
+.grid,.accessory-list{grid-template-columns:1fr}
+.container{padding:10px}
+table{font-size:13px}
+}
+@media print{
+header,#login,#admin,.no-print{display:none!important}
+body{background:white}
+.container{margin:0;padding:0}
+.card{box-shadow:none}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>ARBIT AUTOMOBILE PVT. LTD.</h1>
+<p>MSGA ACCESSORIES QUOTATION</p>
+</header>
+
+<div class="container">
+
+<!-- LOGIN -->
+<div class="card" id="login">
+<h2>Employee Login</h2>
+
+<div class="grid">
+<div>
+<label>Employee</label>
+<select id="employee">
+<option value="admin">Admin</option>
+<option value="rm">Relationship Manager</option>
+<option value="stylist">Car Stylist</option>
+<option value="staff">Authorized Staff</option>
+</select>
+</div>
+<div>
+<label>Password</label>
+<input type="password" id="password" placeholder="Enter password">
+</div>
+</div>
+
+<button onclick="loginUser()">Login</button>
+<p class="notice">Demo password: arbit123</p>
+</div>
+
+<!-- APPLICATION -->
+<div id="application" class="hidden">
+
+<div class="card no-print">
+<strong>Logged in: <span id="loggedName"></span></strong>
+<button class="secondary" onclick="logout()">Logout</button>
+</div>
+
+<!-- ADMIN -->
+<div class="card hidden" id="admin">
+<h2>Admin - Accessory Master</h2>
+
+<p class="notice">
+Only Admin can view and change minimum selling prices.
+Car Stylist cannot quote below the minimum price.
+</p>
+
+<div class="grid">
+<div>
+<label>Accessory Name</label>
+<input id="partName" placeholder="Accessory name">
+</div>
+<div>
+<label>Standard Price</label>
+<input type="number" id="partPrice" placeholder="Standard price">
+</div>
+<div>
+<label>Minimum Selling Price</label>
+<input type="number" id="partMin" placeholder="Minimum price">
+</div>
+</div>
+
+<button onclick="addAccessory()">Add Accessory</button>
+
+<table>
+<thead>
+<tr>
+<th>Accessory</th>
+<th>Standard Price</th>
+<th>Minimum Price</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody id="adminList"></tbody>
+</table>
+</div>
+
+<!-- QUOTATION -->
+<div class="card" id="quotation">
+
+<h2>Customer Details</h2>
+
+<div class="grid">
+<div>
+<label>Customer Name</label>
+<input id="customer" placeholder="Customer name">
+</div>
+
+<div>
+<label>Mobile Number</label>
+<input id="mobile" placeholder="Mobile number">
+</div>
+
+<div>
+<label>Car Model / Variant</label>
+<input id="vehicle" placeholder="Vehicle details">
+</div>
+
+<div>
+<label>Quotation Number</label>
+<input id="quoteNumber" readonly>
+</div>
+</div>
+
+<h2>Select Accessories</h2>
+
+<input id="search" placeholder="Search accessories..." oninput="showAccessories()">
+
+<div class="accessory-list" id="accessoryList"></div>
+
+<h2>Selected Accessories</h2>
+
+<table>
+<thead>
+<tr>
+<th>Accessory</th>
+<th>Qty</th>
+<th>Rate</th>
+<th>Amount</th>
+<th class="no-print">Action</th>
+</tr>
+</thead>
+<tbody id="selectedList"></tbody>
+</table>
+
+<div class="summary">
+
+<div>
+<span>Subtotal</span>
+<strong id="subtotal">₹0</strong>
+</div>
+
+<div>
+<span>GST %</span>
+<input id="gst" type="number" value="18" min="0" max="100" style="width:65px" oninput="calculate()">
+</div>
+
+<div>
+<span>GST Amount</span>
+<strong id="tax">₹0</strong>
+</div>
+
+<div class="total">
+<span>Grand Total</span>
+<strong id="grandTotal">₹0</strong>
+</div>
+
+</div>
+
+<div class="no-print">
+<button class="green" onclick="saveQuotation()">Save Quotation</button>
+<button onclick="window.print()">Print / Save PDF</button>
+<button class="secondary" onclick="shareWhatsApp()">WhatsApp Share</button>
+<button class="secondary" onclick="newQuotation()">New Quotation</button>
+</div>
+
+<hr>
+
+<h3>Quotation Prepared By</h3>
+<strong id="preparedName"></strong>
+<p id="preparedDesignation"></p>
+
+<p>ARBIT AUTOMOBILE PVT. LTD.</p>
+
+</div>
+
+<div class="card">
+<h2>Quotation History</h2>
+<div id="history"></div>
+</div>
+
+</div>
+</div>
+
+<script>
+
+const employees={
+admin:{name:"Admin",designation:"Administrator",role:"admin",password:"arbit123"},
+rm:{name:"Demo RM",designation:"Relationship Manager",role:"employee",password:"arbit123"},
+stylist:{name:"Demo Car Stylist",designation:"Car Stylist",role:"stylist",password:"arbit123"},
+staff:{name:"Demo Staff",designation:"Authorized Staff",role:"employee",password:"arbit123"}
+};
+
+let currentUser=null;
+let accessories=JSON.parse(localStorage.getItem("arbitAccessories")) || [
+{id:1,name:"Seat Cover",price:8500,min:7800},
+{id:2,name:"Floor Mat",price:2500,min:2200},
+{id:3,name:"Mud Flap",price:1200,min:1000},
+{id:4,name:"Door Visor",price:2200,min:1900},
+{id:5,name:"Body Side Moulding",price:3500,min:3100},
+{id:6,name:"Car Perfume",price:500,min:400}
+];
+
+let selected=[];
+
+function money(n){
+return "₹"+Number(n).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+
+function loginUser(){
+let id=document.getElementById("employee").value;
+let pass=document.getElementById("password").value;
+
+if(pass!==employees[id].password){
+alert("Incorrect password");
+return;
+}
+
+currentUser=employees[id];
+
+document.getElementById("login").classList.add("hidden");
+document.getElementById("application").classList.remove("hidden");
+
+document.getElementById("loggedName").innerText=currentUser.name+" - "+currentUser.designation;
+document.getElementById("preparedName").innerText=currentUser.name;
+document.getElementById("preparedDesignation").innerText=currentUser.designation;
+
+document.getElementById("admin").classList.toggle("hidden",currentUser.role!=="admin");
+
+renderAdmin();
+showAccessories();
+newQuotation();
+renderHistory();
+}
+
+function logout(){
+location.reload();
+}
+
+function addAccessory(){
+let name=document.getElementById("partName").value.trim();
+let price=Number(document.getElementById("partPrice").value);
+let min=Number(document.getElementById("partMin").value);
+
+if(currentUser.role!=="admin"){
+alert("Admin access only");
+return;
+}
+
+if(!name||!Number.isFinite(price)||!Number.isFinite(min)||min<0||price<min){
+alert("Standard price must be equal to or higher than minimum price.");
+return;
+}
+
+accessories.push({id:Date.now(),name,price,min});
+saveMaster();
+renderAdmin();
+showAccessories();
+
+document.getElementById("partName").value="";
+document.getElementById("partPrice").value="";
+document.getElementById("partMin").value="";
+}
+
+function saveMaster(){
+localStorage.setItem("arbitAccessories",JSON.stringify(accessories));
+}
+
+function renderAdmin(){
+if(currentUser.role!=="admin")return;
+
+document.getElementById("adminList").innerHTML=accessories.map(a=>`
+<tr>
+<td>${a.name}</td>
+<td>${money(a.price)}</td>
+<td>${money(a.min)}</td>
+<td><button onclick="editAccessory(${a.id})">Edit</button>
+<button class="danger" onclick="deleteAccessory(${a.id})">Delete</button></td>
+</tr>
+`).join("");
+}
+
+function editAccessory(id){
+let a=accessories.find(x=>x.id===id);
+let price=prompt("Standard price",a.price);
+if(price===null)return;
+let min=prompt("Minimum selling price",a.min);
+if(min===null)return;
+
+price=Number(price);
+min=Number(min);
+
+if(!Number.isFinite(price)||!Number.isFinite(min)||min<0||price<min){
+alert("Invalid prices. Standard price must be at least the minimum.");
+return;
+}
+
+a.price=price;
+a.min=min;
+saveMaster();
+renderAdmin();
+showAccessories();
+}
+
+function deleteAccessory(id){
+if(!confirm("Delete this accessory?"))return;
+accessories=accessories.filter(a=>a.id!==id);
+selected=selected.filter(a=>a.id!==id);
+saveMaster();
+renderAdmin();
+showAccessories();
+renderSelected();
+}
+
+function showAccessories(){
+let search=document.getElementById("search").value.toLowerCase();
+
+document.getElementById("accessoryList").innerHTML=
+accessories.filter(a=>a.name.toLowerCase().includes(search)).map(a=>`
+<label class="accessory">
+<input type="checkbox"
+${selected.some(x=>x.id===a.id)?"checked":""}
+onchange="toggleAccessory(${a.id},this.checked)">
+<span>${a.name} — ${money(a.price)}</span>
+</label>
+`).join("");
+}
+
+function toggleAccessory(id,checked){
+let a=accessories.find(x=>x.id===id);
+if(!a)return;
+
+if(checked){
+if(!selected.some(x=>x.id===id)){
+selected.push({...a,qty:1,rate:a.price});
+}
+}else{
+selected=selected.filter(x=>x.id!==id);
+}
+
+renderSelected();
+}
+
+function renderSelected(){
+let canEdit=currentUser.role==="stylist"||currentUser.role==="admin";
+
+document.getElementById("selectedList").innerHTML=selected.map((a,i)=>`
+<tr>
+<td>${a.name}</td>
+<td><input type="number" min="1" value="${a.qty}" style="width:60px" onchange="changeQty(${i},this.value)"></td>
+<td>${canEdit?
+`<input type="number" value="${a.rate}" min="${a.min}" style="width:100px" onchange="changeRate(${i},this.value)">`
+:money(a.rate)}</td>
+<td>${money(a.qty*a.rate)}</td>
+<td class="no-print"><button class="danger" onclick="toggleAccessory(${a.id},false)">Remove</button></td>
+</tr>
+`).join("");
+
+calculate();
+showAccessories();
+}
+
+function changeQty(i,value){
+let n=Number(value);
+if(!Number.isInteger(n)||n<1){
+alert("Quantity must be at least 1");
+renderSelected();
+return;
+}
+selected[i].qty=n;
+renderSelected();
+}
+
+function changeRate(i,value){
+let n=Number(value);
+let a=selected[i];
+
+if(!Number.isFinite(n)||n<a.min){
+alert("Price cannot be below Admin-defined minimum.");
+renderSelected();
+return;
+}
+
+a.rate=n;
+renderSelected();
+}
+
+function calculate(){
+let subtotal=selected.reduce((s,a)=>s+a.qty*a.rate,0);
+let gst=Number(document.getElementById("gst").value)||0;
+if(gst<0||gst>100)gst=0;
+
+let tax=subtotal*gst/100;
+
+document.getElementById("subtotal").innerText=money(subtotal);
+document.getElementById("tax").innerText=money(tax);
+document.getElementById("grandTotal").innerText=money(subtotal+tax);
+}
+
+function newQuotation(){
+selected=[];
+document.getElementById("customer").value="";
+document.getElementById("mobile").value="";
+document.getElementById("vehicle").value="";
+document.getElementById("gst").value=18;
+document.getElementById("quoteNumber").value="ARBIT-"+Date.now().toString().slice(-7);
+renderSelected();
+}
+
+function saveQuotation(){
+if(!document.getElementById("customer").value.trim()){
+alert("Enter customer name");
+return;
+}
+if(selected.length===0){
+alert("Select at least one accessory");
+return;
+}
+
+let subtotal=selected.reduce((s,a)=>s+a.qty*a.rate,0);
+let gst=Number(document.getElementById("gst").value)||0;
+
+let quote={
+number:document.getElementById("quoteNumber").value,
+customer:document.getElementById("customer").value,
+vehicle:document.getElementById("vehicle").value,
+items:selected,
+total:subtotal*(1+gst/100),
+prepared:currentUser.name,
+designation:currentUser.designation,
+date:new Date().toLocaleDateString("en-IN")
+};
+
+let history=JSON.parse(localStorage.getItem("arbitHistory")||"[]");
+history.unshift(quote);
+localStorage.setItem("arbitHistory",JSON.stringify(history));
+
+renderHistory();
+alert("Quotation saved");
+}
+
+function renderHistory(){
+let history=JSON.parse(localStorage.getItem("arbitHistory")||"[]");
+document.getElementById("history").innerHTML=history.map(q=>`
+<p><b>${q.number}</b> | ${q.customer} | ${money(q.total)}
+<br><small>Prepared by ${q.prepared} - ${q.designation}</small></p>
+`).join("")||"No saved quotations";
+}
+
+function shareWhatsApp(){
+if(!selected.length){
+alert("Select accessories first");
+return;
+}
+
+let text="ARBIT AUTOMOBILE PVT. LTD.\\nMSGA ACCESSORIES QUOTATION\\n";
+text+="Customer: "+document.getElementById("customer").value+"\\n";
+text+="Vehicle: "+document.getElementById("vehicle").value+"\\n\\n";
+
+selected.forEach(a=>{
+text+=a.name+" | Qty "+a.qty+" | "+money(a.rate)+" | "+money(a.qty*a.rate)+"\\n";
+});
+
+text+="\\nGrand Total: "+document.getElementById("grandTotal").innerText;
+text+="\\nPrepared by: "+currentUser.name+" - "+currentUser.designation;
+
+window.open("https://wa.me/?text="+encodeURIComponent(text),"_blank");
+}
+
+</script>
+</body>
+</html>
