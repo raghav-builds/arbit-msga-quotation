@@ -3,41 +3,50 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MSGA Quotation | Arbit Automobile</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#102b50">
+<title>Arbit MSGA Accessories Quotation</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f3f5f9;color:#202b3c}
-header{background:#102b50;color:white;padding:18px 24px}
-header h2{margin:0} header p{margin:5px 0 0;color:#cbd7e8}
-.container{max-width:1200px;margin:22px auto;padding:0 15px}
-.card{background:white;padding:20px;border-radius:12px;margin-bottom:18px;box-shadow:0 3px 14px #142b4a12}
-h3{margin-top:0;color:#17375e}
-input,select,button{padding:10px;border:1px solid #ccd4df;border-radius:7px;font-size:14px}
-input,select{max-width:100%}
-button{cursor:pointer;background:#173e70;color:white;border:0;margin:3px}
+body{margin:0;background:#f2f5f9;color:#203047;font-family:Arial,sans-serif}
+header{background:#102b50;color:white;padding:17px 20px}
+header h2{margin:0;font-size:21px}
+header p{margin:5px 0 0;color:#cfdaea}
+.container{max-width:1200px;margin:20px auto;padding:0 14px}
+.card{background:white;border-radius:12px;padding:18px;margin-bottom:16px;box-shadow:0 3px 14px #142b4a12}
+h3{margin:0 0 14px;color:#17375e}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px}
+input,select,button{font-size:15px;border-radius:7px;padding:11px;border:1px solid #ccd5e0;max-width:100%}
+input,select{width:100%;background:white}
+button{background:#173e70;color:white;border:0;cursor:pointer;margin:3px}
 button:hover{background:#245b9e}
-.secondary{background:#64748b}.danger{background:#bd3434}.success{background:#16834c}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}
-table{width:100%;border-collapse:collapse;margin-top:12px}
+.success{background:#16834c}.danger{background:#bd3434}.secondary{background:#64748b}
+label{font-size:13px;font-weight:bold;display:block;margin-bottom:5px}
+.small{font-size:12px;color:#64748b;line-height:1.5}
+.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:550px;margin-top:12px}
 th,td{padding:10px;border-bottom:1px solid #e5eaf0;text-align:left;font-size:14px}
 th{background:#edf2f8}
-.tablewrap{overflow-x:auto}
-.small{font-size:12px;color:#64748b}
-.hidden{display:none!important}
-.right{text-align:right}
-.total{font-size:21px;font-weight:bold;color:#116b42}
-.accessory{display:flex;align-items:center;gap:9px;padding:10px;border:1px solid #e1e7ef;border-radius:8px}
-.accessory input{width:18px;height:18px}
-.accessory-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:9px}
-.actions{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
-label{font-size:13px;font-weight:bold}
-.login{max-width:420px;margin:70px auto}
-.login input{width:100%;margin:7px 0}
+.accessory-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:9px}
+.accessory{display:flex;align-items:center;gap:10px;border:1px solid #e1e7ef;padding:12px;border-radius:8px;cursor:pointer}
+.accessory input{width:20px;height:20px;flex-shrink:0}
 .rate-input{width:105px}
+.total{font-size:23px;font-weight:bold;color:#137445}
+.hidden{display:none!important}
+.login{max-width:420px;margin:55px auto}
+.login input{margin:6px 0 12px}
+.top-info{display:flex;flex-wrap:wrap;gap:18px}
+@media(max-width:600px){
+ header h2{font-size:18px}
+ .card{padding:14px}
+ .container{padding:0 9px}
+ button{padding:11px 13px}
+}
 @media print{
  header,.no-print,#loginBox,#adminPanel,#historyPanel{display:none!important}
- body{background:white}.container{max-width:100%;margin:0}
+ body{background:white}
+ .container{margin:0;padding:0;max-width:100%}
  .card{box-shadow:none;border:0}
 }
 </style>
@@ -51,14 +60,13 @@ label{font-size:13px;font-weight:bold}
 
 <div class="container">
 
-<!-- LOGIN -->
 <div class="card login" id="loginBox">
  <h3>Employee Login</h3>
  <label>Employee ID</label>
- <input id="loginId" placeholder="Enter employee ID">
+ <input id="loginId" placeholder="Employee ID">
  <label>Password</label>
- <input id="loginPassword" type="password" placeholder="Enter password">
- <button style="width:100%;margin-top:12px" onclick="login()">Login</button>
+ <input id="loginPassword" type="password" placeholder="Password">
+ <button style="width:100%" onclick="login()">Login</button>
  <p class="small">Demo Admin: admin / arbit123</p>
  <p class="small">Demo RM: rm1 / arbit123</p>
  <p class="small">Demo Car Stylist: stylist1 / arbit123</p>
@@ -67,13 +75,12 @@ label{font-size:13px;font-weight:bold}
 <div id="app" class="hidden">
 
 <div class="card">
- <div class="grid">
+ <div class="top-info">
   <div><b>Employee:</b> <span id="employeeName"></span></div>
   <div><b>Designation:</b> <span id="employeeRole"></span></div>
-  <div><b>Login ID:</b> <span id="employeeId"></span></div>
  </div>
  <div class="actions no-print">
-  <button class="secondary" onclick="showQuotation()">New Quotation</button>
+  <button onclick="showQuotation()">New Quotation</button>
   <button class="secondary" onclick="showHistory()">Quotation History</button>
   <button id="adminButton" class="hidden" onclick="showAdmin()">Admin Rate Management</button>
   <button class="danger" onclick="logout()">Logout</button>
@@ -84,61 +91,94 @@ label{font-size:13px;font-weight:bold}
 <div class="card" id="quotationPanel">
  <h3>Create Accessories Quotation</h3>
  <div class="grid">
-  <div><label>Customer Name</label><input id="customer" placeholder="Customer name"></div>
-  <div><label>Mobile Number</label><input id="mobile" placeholder="Mobile number"></div>
-  <div><label>Vehicle Model</label><input id="vehicle" placeholder="Vehicle model"></div>
-  <div><label>Quotation Date</label><input id="quoteDate" type="date"></div>
+  <div>
+   <label>Customer Name</label>
+   <input id="customer" placeholder="Customer name">
+  </div>
+  <div>
+   <label>Mobile Number</label>
+   <input id="mobile" inputmode="numeric" placeholder="Mobile number">
+  </div>
+  <div>
+   <label>Vehicle Model</label>
+   <select id="vehicleModel" onchange="changeVehicleModel()"></select>
+  </div>
+  <div>
+   <label>Quotation Date</label>
+   <input id="quoteDate" type="date">
+  </div>
  </div>
 
- <h3 style="margin-top:22px">Select Accessories</h3>
- <p class="small">Accessory add karne ke liye checkbox select karein. Hatane ke liye uncheck karein.</p>
+ <h3 style="margin-top:23px">Select Accessories</h3>
+ <p class="small">Checkbox select karne par selected vehicle model ka rate lagega.</p>
  <div id="accessoryList" class="accessory-list"></div>
 
  <div class="tablewrap">
- <table>
-  <thead><tr>
-   <th>Accessory</th><th>Qty</th><th>Rate (₹)</th><th>Amount (₹)</th><th class="no-print">Remove</th>
-  </tr></thead>
-  <tbody id="selectedRows"></tbody>
- </table>
+  <table>
+   <thead>
+    <tr>
+     <th>Accessory</th>
+     <th>Qty</th>
+     <th>Rate ₹</th>
+     <th>Amount ₹</th>
+     <th class="no-print">Remove</th>
+    </tr>
+   </thead>
+   <tbody id="selectedRows"></tbody>
+  </table>
  </div>
 
- <div class="grid" style="margin-top:18px">
-  <div><label>GST %</label><input id="gst" type="number" value="18" min="0" oninput="calculate()"></div>
+ <div class="grid" style="margin-top:20px">
   <div><label>Subtotal</label><div id="subtotal">₹0.00</div></div>
-  <div><label>GST Amount</label><div id="gstAmount">₹0.00</div></div>
   <div><label>Grand Total</label><div class="total" id="grandTotal">₹0.00</div></div>
  </div>
+
  <div class="actions no-print">
   <button class="success" onclick="saveQuotation()">Save Quotation</button>
   <button onclick="window.print()">Print / Save PDF</button>
   <button onclick="shareWhatsApp()">WhatsApp Share</button>
  </div>
- <p class="small">Quotation prepared by: <b id="preparedBy"></b></p>
+ <p class="small">Prepared by: <b id="preparedBy"></b></p>
 </div>
 
-<!-- ADMIN RATE PANEL -->
+<!-- ADMIN -->
 <div class="card hidden" id="adminPanel">
- <h3>Admin – Accessory Rate Management</h3>
- <p class="small">Standard rate aur minimum selling price yahan manage karein. Minimum price sirf Admin ko dikhai jaati hai.</p>
+ <h3>Admin – Model-wise Rate Management</h3>
+ <p class="small">Yahan selected vehicle model ke accessory rates manage honge. Minimum price sirf Admin ko dikhai jayegi.</p>
 
- <h3>1. Single Accessory Update / Add</h3>
+ <div class="grid">
+  <div>
+   <label>Select Model for Rate Management</label>
+   <select id="adminModel" onchange="renderAdmin()"></select>
+  </div>
+  <div>
+   <label>Add New Vehicle Model</label>
+   <input id="newModel" placeholder="e.g. Fronx">
+   <button class="success" onclick="addModel()">Add Model</button>
+  </div>
+  <div>
+   <label>Delete Selected Model</label>
+   <button class="danger" onclick="deleteModel()">Delete Model</button>
+  </div>
+ </div>
+
+ <h3 style="margin-top:24px">Add New Accessory</h3>
  <div class="grid">
   <div><label>Accessory Name</label><input id="newName" placeholder="Accessory name"></div>
-  <div><label>Category</label><input id="newCategory" placeholder="Category"></div>
-  <div><label>Standard Rate (₹)</label><input id="newRate" type="number" min="0"></div>
-  <div><label>Minimum Selling Price (₹)</label><input id="newMin" type="number" min="0"></div>
+  <div><label>Category</label><input id="newCategory" placeholder="Interior / Exterior"></div>
+  <div><label>Standard Rate ₹</label><input id="newRate" type="number" min="0"></div>
+  <div><label>Minimum Selling Price ₹</label><input id="newMin" type="number" min="0"></div>
  </div>
- <button class="success" onclick="addAccessory()">Add New Accessory</button>
+ <button class="success" onclick="addAccessory()">Add Accessory for Selected Model</button>
 
- <h3 style="margin-top:25px">2. Bulk Rate Update</h3>
- <p class="small">Neeche list mein accessories select karein. Aap percentage ya fixed amount se rates badha/ghata sakte hain.</p>
+ <h3 style="margin-top:25px">Bulk Rate Update</h3>
+ <p class="small">Bulk update sirf upar selected model ke rates par apply hoga.</p>
  <div class="grid">
   <div>
    <label>Update Type</label>
    <select id="bulkType">
     <option value="percent">Percentage (%)</option>
-    <option value="amount">Fixed Amount (₹)</option>
+    <option value="amount">Fixed Amount ₹</option>
    </select>
   </div>
   <div>
@@ -148,31 +188,44 @@ label{font-size:13px;font-weight:bold}
     <option value="decrease">Decrease (-)</option>
    </select>
   </div>
-  <div><label>Value</label><input id="bulkValue" type="number" min="0" placeholder="Enter value"></div>
+  <div><label>Value</label><input id="bulkValue" type="number" min="0"></div>
  </div>
  <div class="actions">
-  <button onclick="selectAllRates(true)">Select All</button>
-  <button class="secondary" onclick="selectAllRates(false)">Unselect All</button>
+  <button onclick="selectAll(true)">Select All</button>
+  <button class="secondary" onclick="selectAll(false)">Unselect All</button>
   <button class="success" onclick="bulkUpdate()">Apply Bulk Update</button>
  </div>
 
- <h3 style="margin-top:25px">3. Current Accessory Master</h3>
+ <h3 style="margin-top:25px">Accessory Rate List – Selected Model</h3>
+ <div class="tablewrap">
+  <table>
+   <thead>
+    <tr>
+     <th>Select</th><th>Accessory</th><th>Category</th>
+     <th>Standard Rate ₹</th><th>Minimum ₹</th><th>Action</th>
+    </tr>
+   </thead>
+   <tbody id="adminRows"></tbody>
+  </table>
+ </div>
+
+ <h3 style="margin-top:25px">Excel-Compatible CSV Update</h3>
+ <p class="small">Download complete model-wise rate list. Excel mein Model, Rate aur Minimum edit karke CSV upload karein.</p>
  <div class="actions">
-  <button onclick="downloadCSV()">Download Excel-Compatible CSV</button>
-  <label style="padding:10px;background:#edf2f8;border-radius:7px;cursor:pointer">
+  <button onclick="downloadCSV()">Download Rate List CSV</button>
+  <label style="background:#edf2f8;padding:10px;border-radius:7px;cursor:pointer">
    Upload Updated CSV
    <input type="file" id="csvFile" accept=".csv,text/csv" style="display:none" onchange="uploadCSV(event)">
   </label>
  </div>
- <p class="small">CSV file ko Excel mein open karke edit karein. Columns: ID, Name, Category, Rate, Minimum.</p>
+ <p class="small">CSV columns: Model, ID, Name, Category, Rate, Minimum. Upload karne par poori model-wise rate list replace hogi.</p>
 
+ <h3 style="margin-top:25px">Rate Change History</h3>
  <div class="tablewrap">
- <table>
-  <thead><tr>
-   <th>Select</th><th>Accessory</th><th>Category</th><th>Standard Rate ₹</th><th>Minimum Price ₹</th><th>Action</th>
-  </tr></thead>
-  <tbody id="adminRows"></tbody>
- </table>
+  <table>
+   <thead><tr><th>Date & Time</th><th>Model</th><th>Accessory</th><th>Old Rate</th><th>New Rate</th><th>Updated By</th></tr></thead>
+   <tbody id="rateHistoryRows"></tbody>
+  </table>
  </div>
 </div>
 
@@ -180,10 +233,10 @@ label{font-size:13px;font-weight:bold}
 <div class="card hidden" id="historyPanel">
  <h3>Quotation History</h3>
  <div class="tablewrap">
- <table>
- <thead><tr><th>Quote No.</th><th>Date</th><th>Customer</th><th>Vehicle</th><th>Total</th><th>Prepared By</th><th>Action</th></tr></thead>
- <tbody id="historyRows"></tbody>
- </table>
+  <table>
+   <thead><tr><th>Quote No.</th><th>Date</th><th>Customer</th><th>Model</th><th>Total</th><th>Prepared By</th><th>Action</th></tr></thead>
+   <tbody id="historyRows"></tbody>
+  </table>
  </div>
 </div>
 
@@ -191,80 +244,105 @@ label{font-size:13px;font-weight:bold}
 </div>
 
 <script>
-const USERS = {
+const USERS={
  admin:{password:"arbit123",name:"Administrator",role:"Admin"},
  rm1:{password:"arbit123",name:"Demo RM",role:"RM"},
  stylist1:{password:"arbit123",name:"Demo Car Stylist",role:"Car Stylist"},
  staff1:{password:"arbit123",name:"Demo Staff",role:"Authorized Staff"}
 };
 
-const DEFAULT_ACCESSORIES = [
- {id:1,name:"Seat Cover",category:"Interior",rate:4000,minimum:3500},
- {id:2,name:"Floor Mat",category:"Interior",rate:1500,minimum:1200},
- {id:3,name:"Mud Flap",category:"Exterior",rate:800,minimum:650},
- {id:4,name:"Door Visor",category:"Exterior",rate:1200,minimum:1000},
- {id:5,name:"Body Cover",category:"Protection",rate:1800,minimum:1500},
- {id:6,name:"Door Sill Guard",category:"Exterior",rate:950,minimum:750},
- {id:7,name:"Steering Cover",category:"Interior",rate:500,minimum:400},
- {id:8,name:"Car Perfume",category:"Utility",rate:350,minimum:250}
+const DEFAULT_MODELS=["Baleno","Swift","Brezza","Fronx","Grand Vitara","Ertiga","Wagon R","Dzire"];
+
+const DEFAULT_ACCESSORIES=[
+ {id:1,name:"Seat Cover",category:"Interior",prices:{}},
+ {id:2,name:"Floor Mat",category:"Interior",prices:{}},
+ {id:3,name:"Mud Flap",category:"Exterior",prices:{}},
+ {id:4,name:"Door Visor",category:"Exterior",prices:{}},
+ {id:5,name:"Body Cover",category:"Protection",prices:{}},
+ {id:6,name:"Door Sill Guard",category:"Exterior",prices:{}},
+ {id:7,name:"Steering Cover",category:"Interior",prices:{}},
+ {id:8,name:"Car Perfume",category:"Utility",prices:{}}
 ];
 
-let accessories = JSON.parse(localStorage.getItem("arbit_accessories") || "null") || DEFAULT_ACCESSORIES;
-let quotations = JSON.parse(localStorage.getItem("arbit_quotations") || "[]");
-let currentUser = null;
-let selected = {};
+const STORE="arbit_msga_model_v3";
+let data=JSON.parse(localStorage.getItem(STORE)||"null");
 
-function storeAccessories(){
- localStorage.setItem("arbit_accessories",JSON.stringify(accessories));
+if(!data || !data.models || !data.accessories || !data.accessories.every(a=>a.prices)){
+ data={
+  models:DEFAULT_MODELS,
+  accessories:DEFAULT_ACCESSORIES,
+  quotations:[],
+  rateHistory:[]
+ };
 }
-function storeQuotes(){
- localStorage.setItem("arbit_quotations",JSON.stringify(quotations));
+
+let currentUser=null;
+let selected={};
+
+function saveData(){
+ localStorage.setItem(STORE,JSON.stringify(data));
 }
 function money(n){
  return "₹"+Number(n||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
 }
+function escapeHTML(v){
+ return String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function adminUser(){return currentUser&&currentUser.role==="Admin"}
+function canEditQuote(){return currentUser&&(currentUser.role==="Admin"||currentUser.role==="Car Stylist")}
 
 function login(){
  const id=document.getElementById("loginId").value.trim();
  const pass=document.getElementById("loginPassword").value;
- const user=USERS[id];
- if(!user || user.password!==pass){
-  alert("Incorrect Employee ID or Password");
-  return;
- }
- currentUser={id,...user};
+ const u=USERS[id];
+ if(!u||u.password!==pass){alert("Incorrect login details");return}
+ currentUser={id,...u};
  document.getElementById("loginBox").classList.add("hidden");
  document.getElementById("app").classList.remove("hidden");
- document.getElementById("employeeName").textContent=user.name;
- document.getElementById("employeeRole").textContent=user.role;
- document.getElementById("employeeId").textContent=id;
- document.getElementById("preparedBy").textContent=user.name+" ("+user.role+")";
- document.getElementById("adminButton").classList.toggle("hidden",user.role!=="Admin");
+ document.getElementById("employeeName").textContent=u.name;
+ document.getElementById("employeeRole").textContent=u.role;
+ document.getElementById("preparedBy").textContent=u.name+" ("+u.role+")";
+ document.getElementById("adminButton").classList.toggle("hidden",!adminUser());
  document.getElementById("quoteDate").value=new Date().toISOString().slice(0,10);
- renderAccessories();
+ fillModelOptions();
  showQuotation();
 }
 function logout(){
- currentUser=null;
- selected={};
+ currentUser=null;selected={};
  document.getElementById("app").classList.add("hidden");
  document.getElementById("loginBox").classList.remove("hidden");
 }
-function isAdmin(){return currentUser && currentUser.role==="Admin";}
-function canEditQuoteRate(){
- return currentUser && (currentUser.role==="Admin" || currentUser.role==="Car Stylist");
+function fillModelOptions(){
+ const quote=document.getElementById("vehicleModel");
+ const admin=document.getElementById("adminModel");
+ const oldQuote=quote.value,oldAdmin=admin.value;
+ quote.innerHTML="";admin.innerHTML="";
+ data.models.forEach(m=>{
+  quote.add(new Option(m,m));
+  admin.add(new Option(m,m));
+ });
+ if(data.models.includes(oldQuote))quote.value=oldQuote;
+ if(data.models.includes(oldAdmin))admin.value=oldAdmin;
+ if(!quote.value&&data.models.length)quote.value=data.models[0];
+ if(!admin.value&&data.models.length)admin.value=data.models[0];
+ renderAccessories();
 }
-
+function selectedModel(){return document.getElementById("vehicleModel").value}
+function adminModel(){return document.getElementById("adminModel").value}
+function getPrice(a,model){
+ return a.prices[model]||{rate:0,minimum:0};
+}
 function showQuotation(){
  document.getElementById("quotationPanel").classList.remove("hidden");
  document.getElementById("adminPanel").classList.add("hidden");
  document.getElementById("historyPanel").classList.add("hidden");
 }
 function showAdmin(){
- if(!isAdmin())return;
+ if(!adminUser())return;
  document.getElementById("quotationPanel").classList.add("hidden");
  document.getElementById("historyPanel").classList.add("hidden");
  document.getElementById("adminPanel").classList.remove("hidden");
+ fillModelOptions();
  renderAdmin();
 }
 function showHistory(){
@@ -273,31 +351,35 @@ function showHistory(){
  document.getElementById("historyPanel").classList.remove("hidden");
  renderHistory();
 }
-
+function changeVehicleModel(){
+ selected={};
+ renderAccessories();
+}
 function renderAccessories(){
  const list=document.getElementById("accessoryList");
+ if(!list)return;
  list.innerHTML="";
- accessories.forEach(a=>{
-  const div=document.createElement("label");
-  div.className="accessory";
+ const model=selectedModel();
+ data.accessories.forEach(a=>{
+  const p=getPrice(a,model);
+  if(!p.rate)return;
+  const label=document.createElement("label");
+  label.className="accessory";
   const cb=document.createElement("input");
-  cb.type="checkbox";
-  cb.checked=!!selected[a.id];
+  cb.type="checkbox";cb.checked=!!selected[a.id];
   cb.onchange=()=>toggleAccessory(a.id,cb.checked);
-  const name=document.createElement("span");
-  name.textContent=a.name+" – "+money(a.rate);
-  div.append(cb,name);
-  list.appendChild(div);
+  const span=document.createElement("span");
+  span.textContent=a.name+" – "+money(p.rate);
+  label.append(cb,span);list.append(label);
  });
  renderSelected();
 }
 function toggleAccessory(id,checked){
+ const a=data.accessories.find(x=>x.id===id);
  if(checked){
-  const a=accessories.find(x=>x.id===id);
-  selected[id]={id,name:a.name,qty:1,rate:Number(a.rate)};
- }else{
-  delete selected[id];
- }
+  const p=getPrice(a,selectedModel());
+  selected[id]={id,name:a.name,qty:1,rate:Number(p.rate),minimum:Number(p.minimum)};
+ }else delete selected[id];
  renderSelected();
 }
 function renderSelected(){
@@ -311,186 +393,226 @@ function renderSelected(){
   q.onchange=()=>{item.qty=Math.max(1,Number(q.value)||1);calculate()};
   qty.append(q);
   const rate=document.createElement("td");
-  const r=document.createElement("input");r.type="number";r.min="0";r.value=item.rate;r.className="rate-input";
-  r.disabled=!canEditQuoteRate();
+  const r=document.createElement("input");r.type="number";r.min="0";r.value=item.rate;r.className="rate-input";r.disabled=!canEditQuote();
   r.onchange=()=>{
-   const master=accessories.find(a=>a.id===item.id);
    const value=Number(r.value);
-   if(!Number.isFinite(value)||value<master.minimum){
+   if(!Number.isFinite(value)||value<item.minimum){
     alert("Rate minimum selling price se kam nahi ho sakta.");
-    r.value=item.rate;
-    return;
+    r.value=item.rate;return;
    }
    item.rate=value;calculate();
   };
   rate.append(r);
   const amount=document.createElement("td");amount.id="amount_"+item.id;
-  const remove=document.createElement("td");
-  const btn=document.createElement("button");btn.className="danger";btn.textContent="Remove";
-  btn.onclick=()=>{delete selected[item.id];renderAccessories()};
-  remove.className="no-print";remove.append(btn);
-  tr.append(name,qty,rate,amount,remove);
-  body.append(tr);
+  const remove=document.createElement("td");remove.className="no-print";
+  const b=document.createElement("button");b.className="danger";b.textContent="Remove";
+  b.onclick=()=>{delete selected[item.id];renderAccessories()};
+  remove.append(b);
+  tr.append(name,qty,rate,amount,remove);body.append(tr);
  });
  calculate();
 }
 function calculate(){
  let subtotal=0;
- Object.values(selected).forEach(item=>{
-  const amount=item.qty*item.rate;
-  subtotal+=amount;
-  const cell=document.getElementById("amount_"+item.id);
-  if(cell)cell.textContent=money(amount);
+ Object.values(selected).forEach(i=>{
+  subtotal+=i.qty*i.rate;
+  const cell=document.getElementById("amount_"+i.id);
+  if(cell)cell.textContent=money(i.qty*i.rate);
  });
- const gstRate=Math.max(0,Number(document.getElementById("gst").value)||0);
- const gstAmount=subtotal*gstRate/100;
  document.getElementById("subtotal").textContent=money(subtotal);
- document.getElementById("gstAmount").textContent=money(gstAmount);
- document.getElementById("grandTotal").textContent=money(subtotal+gstAmount);
- return {subtotal,gstRate,gstAmount,total:subtotal+gstAmount};
+ document.getElementById("grandTotal").textContent=money(subtotal);
+ return subtotal;
 }
 
+function addModel(){
+ if(!adminUser())return;
+ const name=document.getElementById("newModel").value.trim();
+ if(!name){alert("Model name enter karein");return}
+ if(data.models.some(m=>m.toLowerCase()===name.toLowerCase())){
+  alert("Model already exists");return;
+ }
+ data.models.push(name);saveData();
+ document.getElementById("newModel").value="";
+ fillModelOptions();renderAdmin();
+ alert("Model added. Ab is model ke liye accessory rates add karein.");
+}
+function deleteModel(){
+ if(!adminUser())return;
+ const model=adminModel();
+ if(!model)return;
+ if(data.models.length<=1){alert("At least one model required.");return}
+ if(!confirm("Delete model "+model+"?"))return;
+ data.models=data.models.filter(m=>m!==model);
+ data.accessories.forEach(a=>delete a.prices[model]);
+ saveData();selected={};fillModelOptions();renderAdmin();
+}
+function logRate(model,a,oldRate,newRate){
+ data.rateHistory.unshift({
+  date:new Date().toLocaleString("en-IN"),
+  model,accessory:a.name,oldRate,newRate,
+  employee:currentUser.name
+ });
+}
 function addAccessory(){
- if(!isAdmin())return;
+ if(!adminUser())return;
+ const model=adminModel();
  const name=document.getElementById("newName").value.trim();
  const category=document.getElementById("newCategory").value.trim();
  const rate=Number(document.getElementById("newRate").value);
  const minimum=Number(document.getElementById("newMin").value);
- if(!name||!category||!Number.isFinite(rate)||!Number.isFinite(minimum)||rate<0||minimum<0||minimum>rate){
-  alert("Valid name, category, rate aur minimum price enter karein. Minimum price standard rate se zyada nahi ho sakti.");
-  return;
+ if(!model||!name||!category||!Number.isFinite(rate)||!Number.isFinite(minimum)||rate<=0||minimum<0||minimum>rate){
+  alert("Valid details enter karein. Rate positive aur minimum rate se zyada nahi hona chahiye.");return;
  }
- accessories.push({id:Date.now(),name,category,rate,minimum});
- storeAccessories();renderAdmin();renderAccessories();
+ let a=data.accessories.find(x=>x.name.toLowerCase()===name.toLowerCase());
+ if(a){
+  if(a.prices[model]){alert("This accessory already has a rate for this model.");return}
+ }else{
+  a={id:Date.now(),name,category,prices:{}};
+  data.accessories.push(a);
+ }
+ a.prices[model]={rate,minimum};
+ logRate(model,a,0,rate);
+ saveData();renderAdmin();renderAccessories();
  ["newName","newCategory","newRate","newMin"].forEach(id=>document.getElementById(id).value="");
- alert("Accessory added successfully.");
+ alert("Accessory rate added for "+model);
 }
-
 function renderAdmin(){
- if(!isAdmin())return;
- const body=document.getElementById("adminRows");
- body.innerHTML="";
- accessories.forEach(a=>{
+ if(!adminUser())return;
+ const model=adminModel();
+ const body=document.getElementById("adminRows");body.innerHTML="";
+ data.accessories.forEach(a=>{
+  const p=getPrice(a,model);
   const tr=document.createElement("tr");
   const check=document.createElement("td");
-  const cb=document.createElement("input");cb.type="checkbox";cb.className="bulkCheck";cb.value=a.id;
-  check.append(cb);
+  const cb=document.createElement("input");cb.type="checkbox";cb.className="bulkCheck";cb.value=a.id;check.append(cb);
   const name=document.createElement("td");name.textContent=a.name;
-  const category=document.createElement("td");category.textContent=a.category;
+  const cat=document.createElement("td");cat.textContent=a.category;
   const rate=document.createElement("td");
-  const rateInput=document.createElement("input");rateInput.type="number";rateInput.value=a.rate;rateInput.className="rate-input";rate.append(rateInput);
+  const ri=document.createElement("input");ri.type="number";ri.min="0";ri.value=p.rate||0;ri.className="rate-input";rate.append(ri);
   const min=document.createElement("td");
-  const minInput=document.createElement("input");minInput.type="number";minInput.value=a.minimum;minInput.className="rate-input";min.append(minInput);
+  const mi=document.createElement("input");mi.type="number";mi.min="0";mi.value=p.minimum||0;mi.className="rate-input";min.append(mi);
   const action=document.createElement("td");
   const save=document.createElement("button");save.textContent="Save";
   save.onclick=()=>{
-   const nr=Number(rateInput.value),nm=Number(minInput.value);
-   if(!Number.isFinite(nr)||!Number.isFinite(nm)||nr<0||nm<0||nm>nr){
-    alert("Minimum price standard rate se zyada nahi ho sakti.");return;
+   const nr=Number(ri.value),nm=Number(mi.value);
+   if(!Number.isFinite(nr)||!Number.isFinite(nm)||nr<=0||nm<0||nm>nr){
+    alert("Valid rate aur minimum price enter karein.");return;
    }
-   a.rate=nr;a.minimum=nm;
-   storeAccessories();renderAdmin();renderAccessories();
-   alert("Rate updated.");
+   const old=p.rate||0;
+   a.prices[model]={rate:nr,minimum:nm};
+   logRate(model,a,old,nr);
+   saveData();renderAdmin();renderAccessories();
+   alert("Rate saved for "+model);
   };
-  const del=document.createElement("button");del.textContent="Delete";del.className="danger";
+  const del=document.createElement("button");del.textContent="Remove Model Rate";del.className="danger";
   del.onclick=()=>{
-   if(!confirm("Delete "+a.name+"?"))return;
-   accessories=accessories.filter(x=>x.id!==a.id);
-   delete selected[a.id];
-   storeAccessories();renderAdmin();renderAccessories();
+   if(!confirm("Remove "+a.name+" rate from "+model+"?"))return;
+   delete a.prices[model];saveData();renderAdmin();renderAccessories();
   };
   action.append(save,del);
-  tr.append(check,name,category,rate,min,action);
+  tr.append(check,name,cat,rate,min,action);body.append(tr);
+ });
+ renderRateHistory();
+}
+function selectAll(value){
+ document.querySelectorAll(".bulkCheck").forEach(c=>c.checked=value);
+}
+function bulkUpdate(){
+ if(!adminUser())return;
+ const model=adminModel();
+ const ids=[...document.querySelectorAll(".bulkCheck:checked")].map(c=>Number(c.value));
+ const value=Number(document.getElementById("bulkValue").value);
+ if(!ids.length){alert("Accessories select karein.");return}
+ if(!Number.isFinite(value)||value<0){alert("Valid value enter karein.");return}
+ const type=document.getElementById("bulkType").value;
+ const sign=document.getElementById("bulkAction").value==="increase"?1:-1;
+ const changes=[];
+ for(const a of data.accessories.filter(x=>ids.includes(x.id))){
+  const p=getPrice(a,model);
+  if(!p.rate){alert(a.name+" ka "+model+" rate set nahi hai.");return}
+  const nr=Math.round((type==="percent"?p.rate*(1+sign*value/100):p.rate+sign*value)*100)/100;
+  if(nr<=0||nr<p.minimum){
+   alert("Bulk update rejected. "+a.name+" ka rate minimum selling price se neeche ja raha hai.");
+   return;
+  }
+  changes.push({a,old:p.rate,nr,minimum:p.minimum});
+ }
+ if(!confirm(model+" ke "+changes.length+" accessories update karne hain?"))return;
+ changes.forEach(x=>{
+  x.a.prices[model]={rate:x.nr,minimum:x.minimum};
+  logRate(model,x.a,x.old,x.nr);
+ });
+ saveData();renderAdmin();renderAccessories();
+ alert("Bulk rate update successful.");
+}
+function renderRateHistory(){
+ const body=document.getElementById("rateHistoryRows");body.innerHTML="";
+ data.rateHistory.slice(0,100).forEach(h=>{
+  const tr=document.createElement("tr");
+  [h.date,h.model,h.accessory,money(h.oldRate),money(h.newRate),h.employee].forEach(v=>{
+   const td=document.createElement("td");td.textContent=v;tr.append(td);
+  });
   body.append(tr);
  });
 }
-function selectAllRates(value){
- document.querySelectorAll(".bulkCheck").forEach(cb=>cb.checked=value);
-}
-function bulkUpdate(){
- if(!isAdmin())return;
- const ids=[...document.querySelectorAll(".bulkCheck:checked")].map(cb=>Number(cb.value));
- const value=Number(document.getElementById("bulkValue").value);
- if(!ids.length){alert("Pehle accessories select karein.");return;}
- if(!Number.isFinite(value)||value<0){alert("Valid update value enter karein.");return;}
- const type=document.getElementById("bulkType").value;
- const action=document.getElementById("bulkAction").value;
- const factor=action==="increase"?1:-1;
- const updates=accessories.filter(a=>ids.includes(a.id)).map(a=>{
-  let newRate=type==="percent"?a.rate*(1+factor*value/100):a.rate+factor*value;
-  return {a,newRate:Math.round(newRate*100)/100};
- });
- const invalid=updates.filter(x=>x.newRate<x.a.minimum||x.newRate<0);
- if(invalid.length){
-  alert("Bulk update roka gaya. In accessories ka naya rate minimum selling price se kam ho raha hai: "+invalid.map(x=>x.a.name).join(", ")+". Minimum prices ko Admin se pehle adjust karein, ya update value kam karein.");
-  return;
- }
- if(!confirm(ids.length+" accessories ke rates update karne hain?"))return;
- updates.forEach(x=>x.a.rate=x.newRate);
- storeAccessories();renderAdmin();renderAccessories();
- alert("Bulk rates successfully updated.");
-}
 
-function csvEscape(value){
- return '"'+String(value??"").replace(/"/g,'""')+'"';
-}
+function csvCell(v){return '"'+String(v??"").replace(/"/g,'""')+'"'}
 function downloadCSV(){
- if(!isAdmin())return;
- const rows=[["ID","Name","Category","Rate","Minimum"]];
- accessories.forEach(a=>rows.push([a.id,a.name,a.category,a.rate,a.minimum]));
- const csv="\uFEFF"+rows.map(row=>row.map(csvEscape).join(",")).join("\r\n");
- const blob=new Blob([csv],{type:"text/csv;charset=utf-8"});
+ if(!adminUser())return;
+ const rows=[["Model","ID","Name","Category","Rate","Minimum"]];
+ data.models.forEach(model=>{
+  data.accessories.forEach(a=>{
+   const p=getPrice(a,model);
+   if(p.rate)rows.push([model,a.id,a.name,a.category,p.rate,p.minimum]);
+  });
+ });
+ const blob=new Blob(["\uFEFF"+rows.map(r=>r.map(csvCell).join(",")).join("\r\n")],{type:"text/csv;charset=utf-8"});
  const url=URL.createObjectURL(blob);
- const link=document.createElement("a");
- link.href=url;link.download="Arbit_Accessory_Rates.csv";link.click();
+ const link=document.createElement("a");link.href=url;link.download="Arbit_Model_Wise_Rates.csv";link.click();
  URL.revokeObjectURL(url);
 }
 function parseCSV(text){
  const rows=[];let row=[],field="",quoted=false;
  for(let i=0;i<text.length;i++){
-  const c=text[i],next=text[i+1];
-  if(c==='"'&&quoted&&next==='"'){field+='"';i++}
-  else if(c==='"'){quoted=!quoted}
+  const c=text[i],n=text[i+1];
+  if(c==='"'&&quoted&&n==='"'){field+='"';i++}
+  else if(c==='"')quoted=!quoted;
   else if(c===","&&!quoted){row.push(field);field=""}
   else if((c==="\n"||c==="\r")&&!quoted){
-   if(c==="\r"&&next==="\n")i++;
-   row.push(field);if(row.some(v=>v.trim()!==""))rows.push(row);
+   if(c==="\r"&&n==="\n")i++;
+   row.push(field);if(row.some(x=>x.trim()))rows.push(row);
    row=[];field="";
   }else field+=c;
  }
- row.push(field);if(row.some(v=>v.trim()!==""))rows.push(row);
+ row.push(field);if(row.some(x=>x.trim()))rows.push(row);
  return rows;
 }
 function uploadCSV(event){
- if(!isAdmin())return;
+ if(!adminUser())return;
  const file=event.target.files[0];if(!file)return;
  const reader=new FileReader();
  reader.onload=()=>{
   try{
    const rows=parseCSV(String(reader.result).replace(/^\uFEFF/,""));
-   if(rows.length<2)throw Error("CSV file empty hai.");
-   const header=rows[0].map(x=>x.trim().toLowerCase());
-   const index={id:header.indexOf("id"),name:header.indexOf("name"),category:header.indexOf("category"),rate:header.indexOf("rate"),minimum:header.indexOf("minimum")};
-   if(Object.values(index).some(x=>x<0))throw Error("CSV columns ID, Name, Category, Rate, Minimum hone chahiye.");
-   const imported=[];
-   rows.slice(1).forEach(row=>{
-    const id=Number(row[index.id]);
-    const name=(row[index.name]||"").trim();
-    const category=(row[index.category]||"").trim();
-    const rate=Number(row[index.rate]);
-    const minimum=Number(row[index.minimum]);
-    if(!id||!name||!category||!Number.isFinite(rate)||!Number.isFinite(minimum)||rate<0||minimum<0||minimum>rate){
-     throw Error("Invalid row: "+row.join(", "));
-    }
-    imported.push({id,name,category,rate,minimum});
+   const head=rows[0].map(x=>x.trim().toLowerCase());
+   const ix={model:head.indexOf("model"),id:head.indexOf("id"),name:head.indexOf("name"),category:head.indexOf("category"),rate:head.indexOf("rate"),minimum:head.indexOf("minimum")};
+   if(Object.values(ix).some(x=>x<0))throw Error("Required columns: Model, ID, Name, Category, Rate, Minimum");
+   const models=new Set(),map=new Map();
+   rows.slice(1).forEach(r=>{
+    const model=(r[ix.model]||"").trim(),id=Number(r[ix.id]),name=(r[ix.name]||"").trim(),category=(r[ix.category]||"").trim(),rate=Number(r[ix.rate]),minimum=Number(r[ix.minimum]);
+    if(!model||!id||!name||!category||!Number.isFinite(rate)||!Number.isFinite(minimum)||rate<=0||minimum<0||minimum>rate)throw Error("Invalid CSV row: "+r.join(","));
+    models.add(model);
+    if(!map.has(id))map.set(id,{id,name,category,prices:{}});
+    const a=map.get(id);
+    if(a.name!==name||a.category!==category||a.prices[model])throw Error("Duplicate or inconsistent accessory row: "+name);
+    a.prices[model]={rate,minimum};
    });
-   if(!imported.length)throw Error("No valid accessory rows found.");
-   if(!confirm("CSV mein "+imported.length+" accessories hain. Existing accessory list replace ho jayegi. Continue?"))return;
-   accessories=imported;
-   selected={};
-   storeAccessories();renderAdmin();renderAccessories();
-   alert("CSV rates successfully imported.");
-  }catch(err){alert("Upload failed: "+err.message)}
+   if(!map.size)throw Error("No data found");
+   if(!confirm("CSV upload will replace all model-wise accessory rates. Continue?"))return;
+   data.models=[...models];data.accessories=[...map.values()];
+   saveData();selected={};fillModelOptions();renderAdmin();
+   alert("Model-wise CSV imported successfully.");
+  }catch(e){alert("Upload failed: "+e.message)}
   event.target.value="";
  };
  reader.readAsText(file);
@@ -498,61 +620,54 @@ function uploadCSV(event){
 
 function saveQuotation(){
  const items=Object.values(selected);
- if(!items.length){alert("Kam se kam ek accessory select karein.");return}
+ if(!items.length){alert("Select at least one accessory.");return}
  const customer=document.getElementById("customer").value.trim();
- const mobile=document.getElementById("mobile").value.trim();
- const vehicle=document.getElementById("vehicle").value.trim();
- if(!customer||!vehicle){alert("Customer name aur vehicle model enter karein.");return}
- const totals=calculate();
- const quote={
+ const vehicle=selectedModel();
+ if(!customer||!vehicle){alert("Customer name and vehicle model required.");return}
+ const total=calculate();
+ const q={
   number:"ARBIT-"+Date.now(),
   date:document.getElementById("quoteDate").value,
-  customer,mobile,vehicle,
-  items:items.map(x=>({...x})),
-  gstRate:totals.gstRate,
-  subtotal:totals.subtotal,
-  gstAmount:totals.gstAmount,
-  total:totals.total,
+  customer,
+  mobile:document.getElementById("mobile").value.trim(),
+  vehicle,
+  items:items.map(i=>({...i})),
+  total,
   employee:currentUser.name,
   designation:currentUser.role
  };
- quotations.unshift(quote);storeQuotes();
- alert("Quotation saved successfully: "+quote.number);
+ data.quotations.unshift(q);saveData();
+ alert("Quotation saved: "+q.number);
  renderHistory();
 }
 function renderHistory(){
- const body=document.getElementById("historyRows");
- body.innerHTML="";
- quotations.forEach(q=>{
+ const body=document.getElementById("historyRows");body.innerHTML="";
+ data.quotations.forEach(q=>{
   const tr=document.createElement("tr");
   [q.number,q.date,q.customer,q.vehicle,money(q.total),q.employee+" ("+q.designation+")"].forEach(v=>{
    const td=document.createElement("td");td.textContent=v;tr.append(td);
   });
-  const action=document.createElement("td");
-  const btn=document.createElement("button");btn.textContent="View / Print";
-  btn.onclick=()=>printSavedQuote(q.number);
-  action.append(btn);tr.append(action);body.append(tr);
+  const td=document.createElement("td");
+  const b=document.createElement("button");b.textContent="View / Print";b.onclick=()=>printQuote(q.number);
+  td.append(b);tr.append(td);body.append(tr);
  });
 }
-function printSavedQuote(number){
- const q=quotations.find(x=>x.number===number);if(!q)return;
+function printQuote(number){
+ const q=data.quotations.find(x=>x.number===number);if(!q)return;
  const rows=q.items.map(i=>`<tr><td>${escapeHTML(i.name)}</td><td>${i.qty}</td><td>${money(i.rate)}</td><td>${money(i.qty*i.rate)}</td></tr>`).join("");
  const w=window.open("","_blank");
- if(!w){alert("Please allow pop-ups to print quotation.");return}
- w.document.write(`<html><head><title>${q.number}</title><style>body{font-family:Arial;padding:25px}table{width:100%;border-collapse:collapse}td,th{border:1px solid #ccc;padding:9px;text-align:left}</style></head><body><h2>ARBIT AUTOMOBILE PVT. LTD.</h2><h3>Accessories Quotation</h3><p>Quotation: ${q.number}<br>Date: ${q.date}<br>Customer: ${escapeHTML(q.customer)}<br>Mobile: ${escapeHTML(q.mobile)}<br>Vehicle: ${escapeHTML(q.vehicle)}</p><table><tr><th>Accessory</th><th>Qty</th><th>Rate</th><th>Amount</th></tr>${rows}</table><p>Subtotal: ${money(q.subtotal)}<br>GST (${q.gstRate}%): ${money(q.gstAmount)}<br><b>Grand Total: ${money(q.total)}</b></p><p>Prepared by: ${escapeHTML(q.employee)} (${escapeHTML(q.designation)})</p></body></html>`);
+ if(!w){alert("Allow pop-ups to print.");return}
+ w.document.write(`<html><head><title>${q.number}</title><meta name="viewport" content="width=device-width"><style>body{font-family:Arial;padding:25px}table{width:100%;border-collapse:collapse}td,th{border:1px solid #ccc;padding:9px;text-align:left}</style></head><body><h2>ARBIT AUTOMOBILE PVT. LTD.</h2><h3>Accessories Quotation</h3><p>Quotation: ${q.number}<br>Date: ${q.date}<br>Customer: ${escapeHTML(q.customer)}<br>Mobile: ${escapeHTML(q.mobile)}<br>Vehicle Model: ${escapeHTML(q.vehicle)}</p><table><tr><th>Accessory</th><th>Qty</th><th>Rate</th><th>Amount</th></tr>${rows}</table><h3>Grand Total: ${money(q.total)}</h3><p>Prepared by: ${escapeHTML(q.employee)} (${escapeHTML(q.designation)})</p></body></html>`);
  w.document.close();w.print();
-}
-function escapeHTML(value){
- return String(value??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
 function shareWhatsApp(){
  const items=Object.values(selected);
  if(!items.length){alert("Select accessories first.");return}
- const totals=calculate();
- const lines=items.map(i=>`${i.name} | Qty ${i.qty} | ${money(i.rate)} | ${money(i.qty*i.rate)}`);
- const msg=`ARBIT AUTOMOBILE PVT. LTD.\nACCESSORIES QUOTATION\nCustomer: ${document.getElementById("customer").value}\nVehicle: ${document.getElementById("vehicle").value}\n\n${lines.join("\n")}\n\nSubtotal: ${money(totals.subtotal)}\nGST (${totals.gstRate}%): ${money(totals.gstAmount)}\nGrand Total: ${money(totals.total)}\nPrepared by: ${currentUser.name} (${currentUser.role})`;
+ const total=calculate();
+ const msg=`ARBIT AUTOMOBILE PVT. LTD.\nACCESSORIES QUOTATION\nCustomer: ${document.getElementById("customer").value}\nVehicle Model: ${selectedModel()}\n\n${items.map(i=>`${i.name} | Qty ${i.qty} | ${money(i.rate)} | ${money(i.qty*i.rate)}`).join("\n")}\n\nGrand Total: ${money(total)}\nPrepared by: ${currentUser.name} (${currentUser.role})`;
  window.open("https://wa.me/?text="+encodeURIComponent(msg),"_blank");
 }
+saveData();
 </script>
 </body>
 </html>
